@@ -55,7 +55,7 @@ import org.netbeans.api.visual.widget.LabelWidget;
 import org.netbeans.api.visual.widget.LevelOfDetailsWidget;
 import org.netbeans.api.visual.widget.Widget;
 import static com.timboudreau.maven.dependency.graph.fork.Bundle.*;
-import com.timboudreau.vl.jung.JungConnectionWidget;
+import com.timboudreau.vl.jungrapht.JungConnectionWidget;
 import org.openide.util.NbBundle.Messages;
 
 /**

@@ -2,8 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.timboudreau</groupId>
-    <artifactId>visual-library-jung</artifactId>
-    <name>Visual Library + Jung (parent)</name>
+    <artifactId>visual-library-jungrapht</artifactId>
+    <name>Visual Library + JunggraphT (parent)</name>
     <version>1.0</version>
     <packaging>pom</packaging>
     <url>http://timboudreau.com</url>
@@ -14,10 +14,10 @@
         <version.slf4j>1.7.25</version.slf4j>
     </properties>
     <modules>
-        <module>vl-jung</module>
-        <module>vl-jung-extensions</module>
-        <module>vl-jung-demo</module>
-        <module>vl-jung-nbm</module>
+        <module>vl-jungrapht</module>
+        <module>vl-jungrapht-extensions</module>
+        <module>vl-jungrapht-demo</module>
+        <module>vl-jungrapht-nbm</module>
 <!--        <module>maven-dependency-graph-fork</module> -->
     </modules>
     <repositories>
