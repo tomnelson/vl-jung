@@ -131,7 +131,8 @@ public class App {
         bar.setMargin(new Insets(5, 5, 5, 5));
         bar.setLayout(new FlowLayout(5));
         DefaultComboBoxModel<LayoutAlgorithm> mdl = new DefaultComboBoxModel<>();
-        mdl.addElement(new KKLayoutAlgorithm());
+        mdl.addElement(KKLayoutAlgorithm.builder()
+                .build());
         mdl.addElement(layout);
         if (gf.forest != null) {
             mdl.addElement(new BalloonLayoutAlgorithm());
@@ -142,11 +143,16 @@ public class App {
         mdl.addElement(TidierRadialTreeLayoutAlgorithm.edgeAwareBuilder()
                 .vertexShapeFunction(v -> new Ellipse2D.Double(-10, -10, 20, 20)).build());
         mdl.addElement(CircleLayoutAlgorithm.builder().threaded(false).build());
-        mdl.addElement(FRLayoutAlgorithm.builder().repulsionContractBuilder(BarnesHutFRRepulsion.barnesHutBuilder()).build());
-        mdl.addElement(new ISOMLayoutAlgorithm());
-        mdl.addElement(SpringLayoutAlgorithm.builder().repulsionContractBuilder(BarnesHutSpringRepulsion.barnesHutBuilder()).build());
-        mdl.addElement(new DAGLayoutAlgorithm());
-        mdl.addElement(GEMLayoutAlgorithm.edgeAwareBuilder().build());
+        mdl.addElement(FRLayoutAlgorithm.builder().repulsionContractBuilder(BarnesHutFRRepulsion.barnesHutBuilder())
+                .build());
+        mdl.addElement(ISOMLayoutAlgorithm.builder()
+        .build());
+        mdl.addElement(SpringLayoutAlgorithm.builder().repulsionContractBuilder(BarnesHutSpringRepulsion.barnesHutBuilder())
+                .build());
+        mdl.addElement(DAGLayoutAlgorithm.builder().build()
+        );
+        mdl.addElement(GEMLayoutAlgorithm.edgeAwareBuilder()
+                .build());
         mdl.addElement(ForceAtlas2LayoutAlgorithm.builder()
                 .repulsionContractBuilder(BarnesHutFA2Repulsion.builder().repulsionK(300))
         .build());

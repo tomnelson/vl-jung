@@ -102,7 +102,8 @@ public abstract class JungraphtScene<N, E> extends GraphScene<N, E> {
     protected JungraphtScene(Graph<N, E> graph, LayoutAlgorithm<N> layout) {
         this.graph = graph;
         this.layout = layout;
-        this.model = new JungraphtLayoutModel<>(graph, 600, 600);
+        this.model = LayoutModel.<N>builder().graph(graph).size(600, 600)
+                .createVisRunnable(false).build();
         this.model.accept(this.layout);
         timer.setRepeats(true);
         timer.setCoalesce(true);
