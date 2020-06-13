@@ -42,7 +42,7 @@
 
 package com.timboudreau.maven.dependency.graph.fork;
 
-import com.timboudreau.vl.jung.JungScene.GraphMutator;
+import com.timboudreau.vl.jungrapht.JungScene.GraphMutator;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
