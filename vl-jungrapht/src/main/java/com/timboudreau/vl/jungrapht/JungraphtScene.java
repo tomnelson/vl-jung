@@ -102,7 +102,10 @@ public abstract class JungraphtScene<N, E> extends GraphScene<N, E> {
     protected JungraphtScene(Graph<N, E> graph, LayoutAlgorithm<N> layout) {
         this.graph = graph;
         this.layout = layout;
-        this.model = LayoutModel.<N>builder().graph(graph).size(600, 600)
+        // this is a WAG to try to make the layout area good for the graph size
+        int vertexCount = graph.vertexSet().size();
+        int dimension = Math.min(Math.max(600, vertexCount*2), 10000);
+        this.model = LayoutModel.<N>builder().graph(graph).size(dimension, dimension)
                 .createVisRunnable(false).build();
         this.model.accept(this.layout);
         timer.setRepeats(true);
@@ -535,11 +538,6 @@ public abstract class JungraphtScene<N, E> extends GraphScene<N, E> {
             if (!currEdges.contains(e)) {
                 N src = graph.getEdgeSource(e);
                 N dest = graph.getEdgeTarget(e);
-//                if (src == null && dest == null) {
-//                    Pair<N> p = graph.getEndpoints(e);
-//                    src = p.getFirst();
-//                    dest = p.getSecond();
-//                }
                 addEdge(e);
                 setEdgeSource(e, src);
                 setEdgeTarget(e, dest);
@@ -670,14 +668,8 @@ public abstract class JungraphtScene<N, E> extends GraphScene<N, E> {
 
         protected void performLayout(boolean animate) {
             // Make sure the layout knows about the size of the view
-            JComponent vw = getView();
-            if (vw != null) {
-                try {
-                    model.setSize(vw.getSize().width, vw.getSize().height);
-                } catch (UnsupportedOperationException e) {
-                    // some layouts dont support this
-                }
-            }
+
+            model.setSize(model.getPreferredWidth(), model.getPreferredHeight());
 
             minDist = Double.MAX_VALUE;
             maxDist = Double.MIN_VALUE;

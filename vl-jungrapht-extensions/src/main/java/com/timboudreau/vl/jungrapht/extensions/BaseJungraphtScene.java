@@ -90,16 +90,18 @@ public class BaseJungraphtScene<N, E> extends JungraphtScene<N, E> {
         // The layer where node widgets live
         addChild(mainLayer);
 
-        // Use the built in rectangular selection action
-        getActions().addAction(ActionFactory.createRectangularSelectAction(this,
-                selectionLayer));
 
         // Set some layouts
         connectionLayer.setLayout(LayoutFactory.createAbsoluteLayout());
         mainLayer.setLayout(LayoutFactory.createAbsoluteLayout());
         // Zoom on scroll by default
-        getActions().addAction(createScrollWheelAction());
-        
+        getActions().addAction(ActionFactory.createMouseCenteredZoomAction(1.1));
+        getActions().addAction(ActionFactory.createPanAction());
+
+        // Use the built in rectangular selection action
+        getActions().addAction(ActionFactory.createRectangularSelectAction(this,
+                selectionLayer));
+
         // Add the listener which will notice when we hover and update
         // the node color
         addObjectSceneListener(hover, ObjectSceneEventType.OBJECT_HOVER_CHANGED,
@@ -121,15 +123,9 @@ public class BaseJungraphtScene<N, E> extends JungraphtScene<N, E> {
     public void relayout(boolean animate) {
         JComponent vw = getView();
         if (vw != null) {
-            try {
-                Dimension size = vw.getSize();
-                if (!lastSize.equals(size)) {
-                    model.setSize(size.width, size.height);
-                }
-            } catch (UnsupportedOperationException e) {
-                // not supported by some graph layouts, and they tell us
-                // in an ugly way
-            }
+            int preferredWidth = layoutModel().getPreferredWidth();
+            int preferredHeight = layoutModel().getPreferredHeight();
+            model.setSize(preferredWidth, preferredHeight);
         }
         super.performLayout(animate);
     }
