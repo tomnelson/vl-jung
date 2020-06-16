@@ -91,20 +91,25 @@ public abstract class JungraphtScene<N, E> extends GraphScene<N, E> {
     private final Timer timer = new Timer(1000 / 24, timerListener);
     private final Lookup lkp;
 
-    /**
-     * Create a new Scene backed by the passed graph, and whose initial layout
-     * is done using the passed layout.
-     *
-     * @param graph A JGraphT graph which will be used to provide the graph
-     * @param layout A jungrapht layout to be used as the initial layout
-     */
-    @SuppressWarnings("unchecked")
     protected JungraphtScene(Graph<N, E> graph, LayoutAlgorithm<N> layout) {
+        this(graph, layout, g -> {   // this is a WAG to try to make the layout area good for the graph size
+            int vertexCount = g.vertexSet().size();
+            return Math.min(Math.max(600, vertexCount*2), 10000);
+        });
+    }
+
+        /**
+         * Create a new Scene backed by the passed graph, and whose initial layout
+         * is done using the passed layout.
+         *
+         * @param graph A JGraphT graph which will be used to provide the graph
+         * @param layout A jungrapht layout to be used as the initial layout
+         */
+    protected JungraphtScene(Graph<N, E> graph, LayoutAlgorithm<N> layout,
+                             Function<Graph<N, E>, Integer> initialDimensionFunction) {
         this.graph = graph;
         this.layout = layout;
-        // this is a WAG to try to make the layout area good for the graph size
-        int vertexCount = graph.vertexSet().size();
-        int dimension = Math.min(Math.max(600, vertexCount*2), 10000);
+        int dimension = initialDimensionFunction.apply(graph);
         this.model = LayoutModel.<N>builder().graph(graph).size(dimension, dimension)
                 .createVisRunnable(false).build();
         this.model.accept(this.layout);
